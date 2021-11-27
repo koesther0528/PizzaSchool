@@ -3,14 +3,11 @@
 import pygame
 import sys
 
-# step1 : set screen, fps
-# step2 : show dino, jump dino
-# step3 : show tree, move tree
-
 pygame.init()
 pygame.display.set_caption('Pizza School')
-MAX_WIDTH = 800
-MAX_HEIGHT = 400
+background = pygame.image.load('images/bg.gif')
+MAX_WIDTH = 1280
+MAX_HEIGHT = 720
 
 
 def main():
@@ -19,13 +16,12 @@ def main():
     fps = pygame.time.Clock()
 
     # dino
-    imgDino1 = pygame.image.load('images/pizza1.png')
-    imgDino2 = pygame.image.load('images/pizza1.png')
-    dino_height = imgDino1.get_size()[1]
+    pizza1 = pygame.image.load('images/pizza1.png')
+    dino_height = pizza1.get_size()[1]
     dino_bottom = MAX_HEIGHT - dino_height
     dino_x = 50
     dino_y = dino_bottom
-    jump_top = 200
+    jump_top = 450
     leg_swap = True
     is_bottom = True
     is_go_up = False
@@ -38,6 +34,8 @@ def main():
 
     while True:
         screen.fill((255, 255, 255))
+        screen.blit(background, (0, 0))
+        pygame.display.update()
 
         # event check
         for event in pygame.event.get():
@@ -51,9 +49,9 @@ def main():
 
         # dino move
         if is_go_up:
-            dino_y -= 10.0
+            dino_y -= 12.0
         elif not is_go_up and not is_bottom:
-            dino_y += 10.0
+            dino_y += 12.0
 
         # dino top and bottom check
         if is_go_up and dino_y <= jump_top:
@@ -73,10 +71,10 @@ def main():
 
         # draw dino
         if leg_swap:
-            screen.blit(imgDino1, (dino_x, dino_y))
+            screen.blit(pizza1, (dino_x, dino_y))
             leg_swap = False
         else:
-            screen.blit(imgDino2, (dino_x, dino_y))
+            screen.blit(pizza1, (dino_x, dino_y))
             leg_swap = True
 
         # update
